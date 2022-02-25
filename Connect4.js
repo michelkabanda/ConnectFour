@@ -12,7 +12,15 @@ let board = [[null, null, null, null, null, null, null],
 let playerOne = "red"
 let playerTwo = "yellow"
 let currentPlayer = playerOne
+let human = false
+let computer = false 
 let gameOver = false
+let gameStarted = false
+let playerOneScore = 0 
+let playerTwoScore = 0
+let playerOneName = ""
+let playerTwoName = ""
+
 
 console.log(board.length)
 console.log(board[0].length)
@@ -37,40 +45,80 @@ function takeTurn(row, column) {
     //Check the column that was clicked on.
     //Find the bottom empty cell and place the counter in that cell.
 
-    let bottomRowIndex = -1
-    for (let rowIndex = 0; rowIndex < 6; rowIndex++){
-        if (!board[rowIndex][column]){
-            console.log(`Row index is: ${rowIndex}`)
-            console.log(`Column index is: ${column}`)
-            bottomRowIndex = rowIndex
-            console.log(`Bottom available index is: ${bottomRowIndex}`)
+    if (gameStarted){
+        let bottomRowIndex = -1
+        for (let rowIndex = 0; rowIndex < 6; rowIndex++){
+            if (!board[rowIndex][column]){
+                console.log(`Row index is: ${rowIndex}`)
+                console.log(`Column index is: ${column}`)
+                bottomRowIndex = rowIndex
+                console.log(`Bottom available index is: ${bottomRowIndex}`)
+            } else {
+                console.log(`Column: ${column}, Row: ${row} is taken.`)
+            }
+        } 
+        console.log(`takeTurn found empty row ${bottomRowIndex} for column ${column}`)
+        if (bottomRowIndex >= 0){
+            board[bottomRowIndex][column] = currentPlayer
+            console.log(`takeTurn set row ${bottomRowIndex} for column ${column} to player ${currentPlayer}`)
         } else {
-            console.log(`Column: ${column}, Row: ${row} is taken.`)
+            console.log(`takeTurn column ${column} is full`)
         }
-    } 
-    console.log(`takeTurn found empty row ${bottomRowIndex} for column ${column}`)
-    if (bottomRowIndex >= 0){
-        board[bottomRowIndex][column] = currentPlayer
-        console.log(`takeTurn set row ${bottomRowIndex} for column ${column} to player ${currentPlayer}`)
-    } else {
-        console.log(`takeTurn column ${column} is full`)
-    }
 
-    //Now update the DOM to show the counter in the right place
-    if (currentPlayer === playerOne) {
-        currentPlayer = playerTwo
-    } else if (currentPlayer === playerTwo){
-        currentPlayer = playerOne
+        //Now update the DOM to show the counter in the right place
+        if (currentPlayer === playerOne) {
+            currentPlayer = playerTwo
+            computerPlayer()
+        } else if (currentPlayer === playerTwo){
+            currentPlayer = playerOne
+        }
+    }
+}
+
+
+
+function computerPlayer(){
+    if (computer){
+        if (currentPlayer === playerTwo){
+            const randomRow = Math.floor(Math.random() * board.length)
+            const randomColumn = Math.floor(Math.random() * board[0].length)
+            takeTurn(randomRow, randomColumn)
+        }
+    } else{
+        return
     }
 }
 
 
 // Set the game state back to its original state to play another game.
 function resetGame() {
+    console.log("The game was reset completely");
+    currentPlayer = playerOne
+    console.log("Current player is red")
+    gameStarted = false 
+    gameOver = false
+    human = false 
+    computer = false
+    playerOneScore = 0
+    playerTwoScore = 0
+    board = [[null, null, null, null, null, null, null], 
+             [null, null, null, null, null, null, null], 
+             [null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null]]
+    console.log("The board state is now ready")
+    console.log(board)
+}
+
+function playAgain() {
     console.log("The game was reset");
     currentPlayer = playerOne
     console.log("Current player is red")
     gameOver = false
+    // human = false 
+    // computer = false
+    // gameStarted = false 
     board = [[null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null],
@@ -100,6 +148,7 @@ function checkWinner() {
                     console.log(`The red count is: ${redCount}`)
                     gameOver = true
                     console.log(`The winner is red with horizontal`)
+                    playerOneScore += 1
                     return "red"
                     }
             } else if (board[rowIndex][columnIndex] === "yellow"){
@@ -109,6 +158,7 @@ function checkWinner() {
                     console.log(`The yellow count is: ${yellowCount}`)
                     gameOver = true
                     console.log(`The winner is yellow with horizontal`)
+                    playerTwoScore += 1
                     return "yellow"
                     }
             } else{
@@ -129,6 +179,7 @@ function checkWinner() {
                     console.log(`The reds count is: ${redCount}`)
                     gameOver = true
                     console.log(`The winner is red with vertical`)
+                    playerOneScore += 1
                     return "red"
                     }
             } else if (board[rowIndex][columnIndex] === "yellow"){
@@ -138,6 +189,7 @@ function checkWinner() {
                     console.log(`The yellow count is: ${yellowCount}`)
                     gameOver = true
                     console.log(`The winner is yellow with vertical`)
+                    playerTwoScore += 1
                     return "yellow"
                     }
             } else{
@@ -159,6 +211,7 @@ function checkWinner() {
                     board[rowIndex-3][columnIndex-3] == "red") {
                     gameOver = true
                     console.log(`The winner is red with a diagonal`)
+                    playerOneScore += 1
                     return "red"
                 } else if (board[rowIndex][columnIndex] == "yellow" && 
                 board[rowIndex-1][columnIndex-1] == "yellow" && 
@@ -166,6 +219,7 @@ function checkWinner() {
                 board[rowIndex-3][columnIndex-3] == "yellow") {
                 gameOver = true
                 console.log(`The winner is yellow with a diagonal`)
+                playerTwoScore += 1
                 return "yellow"
                 }
             } catch(TypeError){
@@ -185,6 +239,7 @@ function checkWinner() {
                     board[rowIndex-3][columnIndex+3] == "red") {
                     gameOver = true
                     console.log(`The winner is red with a diagonal`)
+                    playerOneScore += 1
                     return "red"
                 } else if (board[rowIndex][columnIndex] == "yellow" && 
                 board[rowIndex-1][columnIndex+1] == "yellow" && 
@@ -192,6 +247,7 @@ function checkWinner() {
                 board[rowIndex-3][columnIndex+3] == "yellow") {
                 gameOver = true
                 console.log(`The winner is yellow with a diagonal`)
+                playerTwoScore += 1
                 return "yellow"
                 }
             } catch(TypeError){

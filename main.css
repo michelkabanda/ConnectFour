@@ -126,22 +126,23 @@ h2 {
 }
 
 #start-button{
-    /* display: none; */
-    display: inline-block;
+    display: none;
+    /* display: inline-block; */
     font-size: 20px;
+    margin: -16px 0px;
 }
 
 
 #player-player-option-button{
-    display: none;
-    /* display: inline-block; */
+    /* display: none; */
+    display: inline-block;
     font-size: 14px;
 
 }
 
 #player-computer-option-button{
-    display: none;
-    /* display: inline-block; */
+    /* display: none; */
+    display: inline-block;
     font-size: 14px;
 }
 
@@ -163,6 +164,7 @@ h2 {
     align-items: center;
     margin: 8px 0;
     /* display: inline-flex; */
+    /* display: none; */
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
@@ -198,8 +200,8 @@ h2 {
     font-weight: bold;
     /* justify-content: space-around; */
     margin: 8px 0px;
-    display: inline-flex;
-    /* display: none; */
+    /* display: inline-flex; */
+    display: none;
     border: 1px solid #ccc;
     background-color: black;
     color: white;

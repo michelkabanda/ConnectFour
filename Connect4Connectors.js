@@ -142,7 +142,7 @@ function displayWinner(){
             winnerDisplay.style.backgroundColor = winner;
         } else {
             winnerDisplay.style.backgroundColor = "black"
-        }
+        } 
     } updateNameAndScore()
 }
 
@@ -302,9 +302,11 @@ function playerTurnDisplay(){
     if (currentPlayer === playerOne){
         playersTurn.style.color = "white"
         playersTurn.innerText = `It is ${playerOneName}'s turn`
-    } else {
+    } else if (currentPlayer === playerTwo){
         playersTurn.style.color = "black"
         playersTurn.innerText = `It is ${playerTwoName}'s turn`
+    } else if (gameOver){
+        playersTurn.innerText = `The game is over`
     }
 }
 

@@ -21,6 +21,16 @@ let playerTwoScore = 0
 let playerOneName = ""
 let playerTwoName = ""
 
+// const playerOne = {colour: "red", 
+//                    score: 0, 
+//                    name: "", 
+//                    playing: true}
+
+// const playerTwo = {colour: "yellow", 
+//                    score: 0, 
+//                    name: "", 
+//                    playing: false}
+
 
 console.log(board.length)
 console.log(board[0].length)
@@ -49,12 +59,13 @@ function takeTurn(row, column) {
         let bottomRowIndex = -1
         for (let rowIndex = 0; rowIndex < 6; rowIndex++){
             if (!board[rowIndex][column]){
-                console.log(`Row index is: ${rowIndex}`)
-                console.log(`Column index is: ${column}`)
+                // console.log(`Row index is: ${rowIndex}`)
+                // console.log(`Column index is: ${column}`)
                 bottomRowIndex = rowIndex
-                console.log(`Bottom available index is: ${bottomRowIndex}`)
+                // console.log(`Bottom available index is: ${bottomRowIndex}`)
             } else {
-                console.log(`Column: ${column}, Row: ${row} is taken.`)
+                // console.log(`Column: ${column}, Row: ${row} is taken.`)
+                continue
             }
         } 
         console.log(`takeTurn found empty row ${bottomRowIndex} for column ${column}`)
@@ -67,6 +78,7 @@ function takeTurn(row, column) {
 
         //Now update the DOM to show the counter in the right place
         if (currentPlayer === playerOne) {
+            // console.log(`The current player is ${currentPlayer}`)
             currentPlayer = playerTwo
             computerPlayer()
         } else if (currentPlayer === playerTwo){
@@ -275,7 +287,6 @@ function checkWinner() {
     }
 
 }
-
 
 
 if (typeof exports === 'object') {

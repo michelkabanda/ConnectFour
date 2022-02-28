@@ -143,7 +143,6 @@ const playAgainButton = document.getElementById("play-again-button");
 playAgainButton.addEventListener("click", playAgainResetClick);
 
 
-
 //The instructions button was clicked call change the display of the instructions
 //to flex if display === none or none if display === flex
 function instructionsClick(event) {
@@ -403,6 +402,7 @@ function hideNameAndScore(){
        playerTwoTextBox.style.backgroundColor = ''
        playerTwoSubmitButton.style.display = 'inline-block'
 }
+
 
 
 if (typeof exports === 'object') {

@@ -89,7 +89,7 @@ function computerPlayer(){
 
 //Set the game state back to its original state to play another game.
 function fullGameParameterReset(){
-    partialParameterReset()
+    playAgainParameterReset()
     gameStarted = false 
     human = false 
     computer = false
@@ -288,6 +288,10 @@ if (typeof exports === 'object') {
         resetGame,
         getBoard,
         playAgain,
+        playAgainParameterReset,
+        fullGameParameterReset,
+        playAgain,
+        resetGame,
     }
 } else {
     console.log("Running in Browser")

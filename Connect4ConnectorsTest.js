@@ -1,10 +1,52 @@
+// Bind the click event for the reset button.
+const playAgainButton = document.getElementById("play-again-button");
+playAgainButton.addEventListener("click", playAgainResetClick);
+
+// Bind the click event for the reset button.
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", resetClick);
+
+// Bind the click event for the instructions button.
+const instructionsButton = document.getElementById("instructions-button");
+instructionsButton.addEventListener("click", instructionsClick);
+
+// Bind the click event for the start button.
+const startButton = document.getElementById("start-button");
+startButton.addEventListener("click", startClick);
+
+// Bind the click event for the player vs player button.
+const humanVsHumanOptionButton = document.getElementById("player-player-option-button");
+humanVsHumanOptionButton.addEventListener("click", humanVsHumanOptionClick);
+
+// Bind the click event for the player vs computer button.
+const humanVsComputerOptionButton = document.getElementById("player-computer-option-button");
+humanVsComputerOptionButton.addEventListener("click", humanVsComputerOptionClick);
+
+// Set the submit button functionality for player one 
+const playerOneNameSubmitButton = document.getElementById("submit-button-player-one");
+playerOneNameSubmitButton.addEventListener("click", submitPlayerOneName);
+
+// Set the submit button functionality for player two.
+const playerTwoNameSubmitButton = document.getElementById("submit-button-player-two");
+playerTwoNameSubmitButton.addEventListener("click", submitPlayerTwoName)
+
+
+// Bind the click events for the grid including clicks, mouse over and mouse out of positions.
+for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
+    for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
+        const gridPosition = document.getElementById(`row-${rowIndex}-column-${columnIndex}`)
+        gridPosition.addEventListener("click", positionClick.bind(null, rowIndex, columnIndex));
+        gridPosition.addEventListener("mouseover", mouseOverCellHighlight.bind(null, rowIndex, columnIndex));
+        gridPosition.addEventListener("mouseout", mouseOutCellRemoveHighlight.bind(null, rowIndex, columnIndex));
+    }
+}
+
 // Clear down the elements drawn on the board.
 function clearBoard() {
     if (gameStarted) {
         for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
             for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
                 console.log("Working")
-                //document.getElementById(`row-${rowIndex}-column-${columnIndex}`).innerHTML = ""
                 document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = "white"
             }
         }
@@ -12,7 +54,6 @@ function clearBoard() {
         for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
             for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
                 console.log("Working")
-                //document.getElementById(`row-${rowIndex}-column-${columnIndex}`).innerHTML = ""
                 document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = "rgb(100, 100, 100)"
             }
         }
@@ -27,7 +68,6 @@ function drawBoard(board) {
         for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
             for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
                 if (!board[rowIndex][columnIndex]) {
-                    //document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = "white"
                     continue;
                 }
                 const cellText = board[rowIndex][columnIndex] === "red" ? "red" : "yellow";
@@ -68,7 +108,6 @@ function mouseOutCellRemoveHighlight(row,column){
     if (gameStarted){
         for (rowIndex = 0; rowIndex < board.length; rowIndex++){
             const mouseOutOfColour = document.getElementById(`row-${rowIndex}-column-${column}`)
-            // console.log(board[rowIndex][column])
             if (board[rowIndex][column] === null){
                 mouseOutOfColour.style.backgroundColor = "white"
             }
@@ -115,16 +154,6 @@ function changeCellColour(){
     } 
 }
 
-// Bind the click events for the grid including clicks, mouse over and mouse out of positions.
-for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
-    for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
-        const gridPosition = document.getElementById(`row-${rowIndex}-column-${columnIndex}`)
-        gridPosition.addEventListener("click", positionClick.bind(null, rowIndex, columnIndex));
-        gridPosition.addEventListener("mouseover", mouseOverCellHighlight.bind(null, rowIndex, columnIndex));
-        gridPosition.addEventListener("mouseout", mouseOutCellRemoveHighlight.bind(null, rowIndex, columnIndex));
-    }
-}
-
 // The reset button was clicked, call the game's reset function then reset the DOM.
 function resetClick(event) {
     resetGame();
@@ -134,14 +163,10 @@ function resetClick(event) {
     humanVsHumanOptionButton.style.backgroundColor = ""
     humanVsComputerOptionButton.style.backgroundColor = ""
     clearBoard()
-    hideNameAndScore()
+    hideScoreboardShowNames()
     console.log("The board was cleared")
 
 }
-
-// Bind the click event for the reset button.
-const resetButton = document.getElementById("reset-button");
-resetButton.addEventListener("click", resetClick);
 
 // The reset button was clicked, call the game's reset function then reset the DOM.
 function playAgainResetClick(event) {
@@ -155,18 +180,12 @@ function playAgainResetClick(event) {
     }
 }
 
-// Bind the click event for the reset button.
-const playAgainButton = document.getElementById("play-again-button");
-playAgainButton.addEventListener("click", playAgainResetClick);
-
 
 //The instructions button was clicked call change the display of the instructions
 //to block if display === none or none if display === block
 function instructionsClick(event) {
-    console.log("I was clicked!!")
     const instructions = document.getElementById("instructions")
     if (instructions.style.display === ""){
-        //null evaluates to an empty string not false or "none "
         console.log("Changed the display to block")
         instructions.style.display = "block"
         console.log(instructions.style.display)
@@ -176,14 +195,7 @@ function instructionsClick(event) {
         console.log(instructions.style.display)
 
     }
-
-    // instructions.style.display === "" ? instructions.style.display = "block" : 
-    //                                     instructions.style.display = ""
 }
-
-// Bind the click event for the instructions button.
-const instructionsButton = document.getElementById("instructions-button");
-instructionsButton.addEventListener("click", instructionsClick);
 
 //Start game click function
 function startClick(event) {
@@ -221,89 +233,53 @@ function startClick(event) {
     updateNameAndScore()
 }
 
-// Bind the click event for the start button.
-const startButton = document.getElementById("start-button");
-startButton.addEventListener("click", startClick);
-
 
 //Enable the human vs human option click 
 function humanVsHumanOptionClick(event) {
     if (!computer){
         human = true
-        console.log("I was clicked!!")
-        console.log("Huuummmaaannnn")
         humanVsHumanOptionButton.style.backgroundColor = "rgb(80, 220, 100)"
         const playersOnScreenTitles = document.getElementById("players-container")
         playersOnScreenTitles.style.display = "flex"
         const start = document.getElementById("start-button")
         start.style.display = "inline-block"
-        // gameStarted = true
-        // changeCellColour()
     } else{
         return
     }
 }
 
-// Bind the click event for the player vs player button.
-const humanVsHumanOptionButton = document.getElementById("player-player-option-button");
-humanVsHumanOptionButton.addEventListener("click", humanVsHumanOptionClick);
 
 //Enable the human vs computer option click
 function humanVsComputerOptionClick(event) {
     if (!human){
         computer = true
-        console.log("I was clicked!!")
-        console.log("Compuuuuuteerrr")
         humanVsComputerOptionButton.style.backgroundColor = "rgb(80, 220, 100)"
         const playersOnScreenTitles = document.getElementById("players-container")
         playersOnScreenTitles.style.display = "flex"
         const start = document.getElementById("start-button")
         start.style.display = "inline-block"
-        // gameStarted = true
-        // changeCellColour()
     } else {
         return
     }
 }
 
-// Bind the click event for the player vs computer button.
-const humanVsComputerOptionButton = document.getElementById("player-computer-option-button");
-humanVsComputerOptionButton.addEventListener("click", humanVsComputerOptionClick);
-
 //Function to submit the player name to the scoreboard
 function submitPlayerOneName(event) {
     console.log("I was clicked!! P1")
-    const submitButton = document.getElementById("submit-button-player-one")
     const playerOneTextBox = document.getElementById("player-one-name-box")
-    playerOneName = playerOneTextBox.value
-    const playerOneNameLabel = document.getElementById("player-one-name-bar")
     playerOneTextBox.style.backgroundColor = 'rgb(80, 220, 100)'
+    playerOneName = playerOneTextBox.value
     console.log(playerOneTextBox.value)
-
-    // playersNameBox.innerText = `${playerOneName}: ${playerOneScore} |  ${playerTwoName}: ${playerTwoScore}`
-
 }
-
-// Set the submit button functionality for player one 
-const playerOneNameSubmitButton = document.getElementById("submit-button-player-one");
-playerOneNameSubmitButton.addEventListener("click", submitPlayerOneName);
 
 
 function submitPlayerTwoName(event) {
     console.log("I was clicked!! P2")
-    const submitButton = document.getElementById("submit-button-player-two")
     const playerTwoTextBox = document.getElementById("player-two-name-box")
-    playerTwoName = playerTwoTextBox.value
-    const playerTwoNameLabel = document.getElementById("player-two-name-bar")
     playerTwoTextBox.style.backgroundColor = 'rgb(80, 220, 100)'
+    playerTwoName = playerTwoTextBox.value
     console.log(playerTwoTextBox.value)
-
-    
 }
-
-// Set the submit button functionality for player two.
-const playerTwoNameSubmitButton = document.getElementById("submit-button-player-two");
-playerTwoNameSubmitButton.addEventListener("click", submitPlayerTwoName)
 
 
 //Update the on-screen names and the scores
@@ -314,32 +290,30 @@ function updateNameAndScore(){
 }
 
 //Function to hide the names and scores 
-function hideNameAndScore(){
+function hideScoreboardShowNames(){
     const playersNameBox = document.getElementById("player-scores-box")
     playersNameBox.style.display = "none"
     playersNameBox.innerText = ``
 
+    //changes to player one 
+    console.log("I was clicked!! P1")
+    const playerOneSubmitButton = document.getElementById("submit-button-player-one")
+    const playerOneTextBox = document.getElementById("player-one-name-box")
+    const playerOneNameLabel = document.getElementById("player-one-name-bar")
+    playerOneNameLabel.style.display = 'inline-block'
+    playerOneTextBox.style.backgroundColor = ''
+    playerOneTextBox.style.display = 'inline-block'
+    playerOneSubmitButton.style.display = 'inline-block'
 
-       //changes to player one 
-       console.log("I was clicked!! P1")
-       const playerOneSubmitButton = document.getElementById("submit-button-player-one")
-       const playerOneTextBox = document.getElementById("player-one-name-box")
-       const playerOneNameLabel = document.getElementById("player-one-name-bar")
-       playerOneNameLabel.style.display = 'inline-block'
-       playerOneTextBox.style.backgroundColor = ''
-       playerOneTextBox.style.display = 'inline-block'
-       
-       playerOneSubmitButton.style.display = 'inline-block'
-   
-   
-       //changes to player two
-       const playerTwoSubmitButton = document.getElementById("submit-button-player-two")
-       const playerTwoTextBox = document.getElementById("player-two-name-box")
-       const playerTwoNameLabel = document.getElementById("player-two-name-bar")
-       playerTwoNameLabel.style.display = 'inline-block'
-       playerTwoTextBox.style.display = 'inline-block'
-       playerTwoTextBox.style.backgroundColor = ''
-       playerTwoSubmitButton.style.display = 'inline-block'
+
+    //changes to player two
+    const playerTwoSubmitButton = document.getElementById("submit-button-player-two")
+    const playerTwoTextBox = document.getElementById("player-two-name-box")
+    const playerTwoNameLabel = document.getElementById("player-two-name-bar")
+    playerTwoNameLabel.style.display = 'inline-block'
+    playerTwoTextBox.style.display = 'inline-block'
+    playerTwoTextBox.style.backgroundColor = ''
+    playerTwoSubmitButton.style.display = 'inline-block'
 }
 
 if (typeof exports === 'object') {

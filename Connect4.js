@@ -21,19 +21,6 @@ let playerTwoScore = 0
 let playerOneName = ""
 let playerTwoName = ""
 
-// const playerOne = {colour: "red", 
-//                    score: 0, 
-//                    name: "", 
-//                    playing: true}
-
-// const playerTwo = {colour: "yellow", 
-//                    score: 0, 
-//                    name: "", 
-//                    playing: false}
-
-
-console.log(board.length)
-console.log(board[0].length)
 
 // Return the current board state with either a "red" or a "yellow" in
 // each position. Put a null in a position that hasn't been played yet.
@@ -78,17 +65,18 @@ function takeTurn(row, column) {
 
         //Now update the DOM to show the counter in the right place
         if (currentPlayer === playerOne) {
+            displayWinner()
             // console.log(`The current player is ${currentPlayer}`)
             currentPlayer = playerTwo
             computerPlayer()
         } else if (currentPlayer === playerTwo){
+            displayWinner()
             currentPlayer = playerOne
         }
     }
 }
 
-
-
+//Function to initialise and set the computer player
 function computerPlayer(){
     if (computer){
         if (currentPlayer === playerTwo){
@@ -101,18 +89,21 @@ function computerPlayer(){
     }
 }
 
-
-// Set the game state back to its original state to play another game.
-function resetGame() {
-    console.log("The game was reset completely");
-    currentPlayer = playerOne
-    console.log("Current player is red")
+//Set the game state back to its original state to play another game.
+function fullGameParameterReset(){
+    playAgainParameterReset()
     gameStarted = false 
-    gameOver = false
     human = false 
     computer = false
     playerOneScore = 0
     playerTwoScore = 0
+}
+
+//Function which resets the entire game including scores and names
+function resetGame() {
+    console.log("The game was reset completely");
+    console.log("Current player is red")
+    fullGameParameterReset()
     board = [[null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null],
@@ -123,14 +114,17 @@ function resetGame() {
     console.log(board)
 }
 
+//Function which resets the play again parameters
+function playAgainParameterReset(){
+    currentPlayer = playerOne
+    gameOver = false
+}
+
+//Function to reset the board only
 function playAgain() {
     console.log("The game was reset");
-    currentPlayer = playerOne
     console.log("Current player is red")
-    gameOver = false
-    // human = false 
-    // computer = false
-    // gameStarted = false 
+    playAgainParameterReset()
     board = [[null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null],
@@ -140,8 +134,6 @@ function playAgain() {
     console.log("The board state is now ready")
     console.log(board)
 }
-
-
 
 // //Return either "reds", "cross" or "nobody" if the game is over.
 // //Otherwise return null to continue playing.
@@ -288,7 +280,6 @@ function checkWinner() {
 
 }
 
-
 if (typeof exports === 'object') {
     console.log("Running in Node")
     // Node. Does not work with strict CommonJS, but only CommonJS-like 
@@ -298,6 +289,11 @@ if (typeof exports === 'object') {
         checkWinner,
         resetGame,
         getBoard,
+        playAgain,
+        playAgainParameterReset,
+        fullGameParameterReset,
+        playAgain,
+        resetGame,
     }
 } else {
     console.log("Running in Browser")

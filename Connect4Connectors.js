@@ -41,6 +41,7 @@ for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
     }
 }
 
+
 // Clear down the elements drawn on the board.
 function clearBoard() {
     if (gameStarted) {
@@ -117,16 +118,20 @@ function mouseOutCellRemoveHighlight(row,column){
 
 function displayWinner(){
     const winner = checkWinner();
+    console.log(`I am ${winner}`)
     if (winner) {
         if (typeof winner !== "string" || !["red", "yellow", "nobody"].includes(winner)) {
             throw "Expecting 'checkWinner' to return null or one of the strings 'red', 'yellow' or 'nobody'. Actually received: " + winner;
         }
         const winnerDisplay = document.getElementById("winner-display");
         if (winner === "red"){
+            // hidePlayerTurn()
             playerOneScore += 1
             winnerDisplay.innerText = `The winner is ${playerOneName}`;
+
         } else if (winner === "yellow"){
             playerTwoScore += 1
+            winnerDisplay.style.color = "black"
             winnerDisplay.innerText = `The winner is ${playerTwoName}`;
         } else {
             winnerDisplay.innerText = `The game ended in a draw`;
@@ -140,7 +145,6 @@ function displayWinner(){
         }
     } updateNameAndScore()
 }
-
 
 //Sets the grid colour to white once the game starts
 function changeCellColour(){
@@ -179,7 +183,6 @@ function playAgainResetClick(event) {
         console.log("The board was cleared")
     }
 }
-
 
 //The instructions button was clicked call change the display of the instructions
 //to block if display === none or none if display === block
@@ -230,6 +233,7 @@ function startClick(event) {
         playerOneName = "Red Player"
     }
 
+    playerTurnDisplay()
     updateNameAndScore()
 }
 
@@ -281,12 +285,33 @@ function submitPlayerTwoName(event) {
     console.log(playerTwoTextBox.value)
 }
 
-
 //Update the on-screen names and the scores
 function updateNameAndScore(){
     const playersNameBox = document.getElementById("player-scores-box")
     playersNameBox.style.display = "inline-flex"
     playersNameBox.innerText = `${playerOneName}: ${playerOneScore} |  ${playerTwoName}: ${playerTwoScore}`
+
+    const playersTurn = document.getElementById("player-turn")
+    playersTurn.style.display = "inline-flex"
+}
+
+function playerTurnDisplay(){
+    const playersTurn = document.getElementById("player-turn")
+    playersTurn.style.backgroundColor = currentPlayer
+    // playersTurn.style.color = "black"
+    if (currentPlayer === playerOne){
+        playersTurn.style.color = "white"
+        playersTurn.innerText = `It is ${playerOneName}'s turn`
+    } else {
+        playersTurn.style.color = "black"
+        playersTurn.innerText = `It is ${playerTwoName}'s turn`
+    }
+}
+
+//function to hide player turn
+function hidePlayerTurn(){
+    const playersTurn = document.getElementById("player-turn")
+    playersTurn.style.display = ""
 }
 
 //Function to hide the names and scores 
@@ -294,6 +319,8 @@ function hideScoreboardShowNames(){
     const playersNameBox = document.getElementById("player-scores-box")
     playersNameBox.style.display = "none"
     playersNameBox.innerText = ``
+
+    hidePlayerTurn()
 
     //changes to player one 
     console.log("I was clicked!! P1")

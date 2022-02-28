@@ -41,7 +41,6 @@ function takeTurn(row, column) {
     
     //Check the column that was clicked on.
     //Find the bottom empty cell and place the counter in that cell.
-
     if (gameStarted){
         let bottomRowIndex = -1
         for (let rowIndex = 0; rowIndex < 6; rowIndex++){
@@ -69,12 +68,15 @@ function takeTurn(row, column) {
             displayWinner()
             // console.log(`The current player is ${currentPlayer}`)
             currentPlayer = playerTwo
+            playerTurnDisplay()
             console.log(`The player is ${currentPlayer}`)
             computerPlayer()
+
         } else if (currentPlayer === playerTwo){
             console.log(`The player is ${currentPlayer}`)
             displayWinner()
             currentPlayer = playerOne
+            playerTurnDisplay()
             console.log(`The player is ${currentPlayer}`)
         }
     }
@@ -91,6 +93,27 @@ function computerPlayer(){
     } else{
         return
     }
+}
+
+//Function which resets the play again parameters
+function playAgainParameterReset(){
+    currentPlayer = playerOne
+    gameOver = false
+}
+
+//Function to reset the board only
+function playAgain() {
+    console.log("The game was reset");
+    console.log("Current player is red")
+    playAgainParameterReset()
+    board = [[null, null, null, null, null, null, null], 
+             [null, null, null, null, null, null, null], 
+             [null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null],
+             [null, null, null, null, null, null, null]]
+    console.log("The board state is now ready")
+    console.log(board)
 }
 
 //Set the game state back to its original state to play another game.
@@ -118,33 +141,25 @@ function resetGame() {
     console.log(board)
 }
 
-//Function which resets the play again parameters
-function playAgainParameterReset(){
-    currentPlayer = playerOne
-    gameOver = false
-}
-
-//Function to reset the board only
-function playAgain() {
-    console.log("The game was reset");
-    console.log("Current player is red")
-    playAgainParameterReset()
-    board = [[null, null, null, null, null, null, null], 
-             [null, null, null, null, null, null, null], 
-             [null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null],
-             [null, null, null, null, null, null, null]]
-    console.log("The board state is now ready")
-    console.log(board)
-}
-
-
-// //Return either "reds", "cross" or "nobody" if the game is over.
-// //Otherwise return null to continue playing.
+//Returns red or yellow if a winner was found or draw if the game ends in a draw
 function checkWinner() {
     console.log("checkWinner was called");
+    const horizontalWin = horizontalWinnerCheck()
+    const verticalWin = verticalWinnerCheck()
+    const diagonalWin = diagonalWinnerCheck()
+    const draw = drawGame()
+    if (horizontalWin !== undefined){
+        return horizontalWin
+    } else if (verticalWin !== undefined){
+        return verticalWin
+    } else if (diagonalWin !== undefined){
+        return diagonalWin
+    } else {
+        return draw
+    }
+}
 
+function horizontalWinnerCheck(){
     let count = 0
     //Check horizontal for winner
     for (rowIndex = 0; rowIndex<board.length; rowIndex++){
@@ -164,7 +179,11 @@ function checkWinner() {
         } count = 0
     }
 
+}
+
+function verticalWinnerCheck(){
     //Check Vertical
+    let count = 0
     for (columnIndex = 0; columnIndex<board[0].length; columnIndex++){
         for (rowIndex = 0; rowIndex<board.length; rowIndex++){
             if (board[rowIndex][columnIndex] === currentPlayer){
@@ -181,9 +200,11 @@ function checkWinner() {
             }
         } count = 0
     }
+}
     
-    //Check Upper left Diagonal
-    for (columnIndex = 0; columnIndex < board[0].length; columnIndex++) {
+function diagonalWinnerCheck(){
+   //Check Upper left Diagonal
+   for (columnIndex = 0; columnIndex < board[0].length; columnIndex++) {
         for(rowIndex = 0; rowIndex < board.length; rowIndex++) {
         //for (columnIndex = 0; columnIndex < board.length; columnIndex++) {
             try{
@@ -203,6 +224,7 @@ function checkWinner() {
             }
         }
     }
+
 
     //Check Upper Right Diagonal
     for (columnIndex = 0; columnIndex < board [0].length; columnIndex++) {
@@ -226,6 +248,9 @@ function checkWinner() {
         }
     } 
 
+}
+ 
+function drawGame(){
     count = 0
     for (columnIndex = 0; columnIndex<6; columnIndex++) {
         for(rowIndex = 0; rowIndex<7; rowIndex++) {
@@ -237,13 +262,14 @@ function checkWinner() {
                     console.log('The game is over: Its a draw')
                     gameOver = true
                     return "nobody"
-
                 }
+            } else {
+                return
             }
         }
     }
-
 }
+
 
 if (typeof exports === 'object') {
     console.log("Running in Node")

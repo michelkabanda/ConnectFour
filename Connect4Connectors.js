@@ -121,11 +121,12 @@ function displayWinner(){
         if (typeof winner !== "string" || !["red", "yellow", "nobody"].includes(winner)) {
             throw "Expecting 'checkWinner' to return null or one of the strings 'red', 'yellow' or 'nobody'. Actually received: " + winner;
         }
-        updateNameAndScore()
         const winnerDisplay = document.getElementById("winner-display");
         if (winner === "red"){
+            playerOneScore += 1
             winnerDisplay.innerText = `The winner is ${playerOneName}`;
         } else if (winner === "yellow"){
+            playerTwoScore += 1
             winnerDisplay.innerText = `The winner is ${playerTwoName}`;
         } else {
             winnerDisplay.innerText = `The game ended in a draw`;
@@ -137,7 +138,7 @@ function displayWinner(){
         } else {
             winnerDisplay.style.backgroundColor = "black"
         }
-    }
+    } updateNameAndScore()
 }
 
 

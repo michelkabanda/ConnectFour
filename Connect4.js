@@ -65,13 +65,17 @@ function takeTurn(row, column) {
 
         //Now update the DOM to show the counter in the right place
         if (currentPlayer === playerOne) {
+            console.log(`The player is ${currentPlayer}`)
             displayWinner()
             // console.log(`The current player is ${currentPlayer}`)
             currentPlayer = playerTwo
+            console.log(`The player is ${currentPlayer}`)
             computerPlayer()
         } else if (currentPlayer === playerTwo){
+            console.log(`The player is ${currentPlayer}`)
             displayWinner()
             currentPlayer = playerOne
+            console.log(`The player is ${currentPlayer}`)
         }
     }
 }
@@ -135,73 +139,47 @@ function playAgain() {
     console.log(board)
 }
 
+
 // //Return either "reds", "cross" or "nobody" if the game is over.
 // //Otherwise return null to continue playing.
 function checkWinner() {
     console.log("checkWinner was called");
-    let redCount = 0
-    let yellowCount = 0
 
+    let count = 0
     //Check horizontal for winner
     for (rowIndex = 0; rowIndex<board.length; rowIndex++){
         for (columnIndex = 0; columnIndex<board[0].length; columnIndex++){
-            if (board[rowIndex][columnIndex] === "red"){
-                yellowCount = 0
-                redCount += 1
-                if (redCount >= 4) {
-                    console.log(`The red count is: ${redCount}`)
+            if (board[rowIndex][columnIndex] === currentPlayer){
+                count+=1
+                if (count >= 4) {
                     gameOver = true
-                    console.log(`The winner is red with horizontal`)
-                    playerOneScore += 1
-                    return "red"
-                    }
-            } else if (board[rowIndex][columnIndex] === "yellow"){
-                redCount = 0
-                yellowCount += 1
-                if (yellowCount >= 4) {
-                    console.log(`The yellow count is: ${yellowCount}`)
-                    gameOver = true
-                    console.log(`The winner is yellow with horizontal`)
-                    playerTwoScore += 1
-                    return "yellow"
-                    }
+                    console.log(`The winner is ${currentPlayer}`)
+                    return currentPlayer
+                } else{
+                    continue
+                }
             } else{
-                yellowCount = 0
-                redCount = 0
+                count = 0
             }
-        } yellowCount = 0
-        redCount = 0
+        } count = 0
     }
 
     //Check Vertical
     for (columnIndex = 0; columnIndex<board[0].length; columnIndex++){
         for (rowIndex = 0; rowIndex<board.length; rowIndex++){
-            if (board[rowIndex][columnIndex] === "red"){
-                yellowCount = 0
-                redCount += 1
-                if (redCount >= 4) {
-                    console.log(`The reds count is: ${redCount}`)
+            if (board[rowIndex][columnIndex] === currentPlayer){
+                count+=1
+                if (count >= 4) {
                     gameOver = true
-                    console.log(`The winner is red with vertical`)
-                    playerOneScore += 1
-                    return "red"
-                    }
-            } else if (board[rowIndex][columnIndex] === "yellow"){
-                redCount = 0
-                yellowCount += 1
-                if (yellowCount >= 4) {
-                    console.log(`The yellow count is: ${yellowCount}`)
-                    gameOver = true
-                    console.log(`The winner is yellow with vertical`)
-                    playerTwoScore += 1
-                    return "yellow"
-                    }
+                    console.log(`The winner is ${currentPlayer}`)
+                    return currentPlayer
+                } else{
+                    continue
+                }
             } else{
-                yellowCount = 0
-                redCount = 0
+                count = 0
             }
-        } yellowCount = 0
-        redCount = 0
+        } count = 0
     }
     
     //Check Upper left Diagonal
@@ -209,22 +187,15 @@ function checkWinner() {
         for(rowIndex = 0; rowIndex < board.length; rowIndex++) {
         //for (columnIndex = 0; columnIndex < board.length; columnIndex++) {
             try{
-                if (board[rowIndex][columnIndex] == "red" && 
-                    board[rowIndex-1][columnIndex-1] == "red" && 
-                    board[rowIndex-2][columnIndex-2] == "red" && 
-                    board[rowIndex-3][columnIndex-3] == "red") {
+                if (board[rowIndex][columnIndex] == currentPlayer && 
+                    board[rowIndex-1][columnIndex-1] == currentPlayer && 
+                    board[rowIndex-2][columnIndex-2] == currentPlayer && 
+                    board[rowIndex-3][columnIndex-3] == currentPlayer) {
                     gameOver = true
-                    console.log(`The winner is red with a diagonal`)
-                    playerOneScore += 1
-                    return "red"
-                } else if (board[rowIndex][columnIndex] == "yellow" && 
-                board[rowIndex-1][columnIndex-1] == "yellow" && 
-                board[rowIndex-2][columnIndex-2] == "yellow" && 
-                board[rowIndex-3][columnIndex-3] == "yellow") {
-                gameOver = true
-                console.log(`The winner is yellow with a diagonal`)
-                playerTwoScore += 1
-                return "yellow"
+                    console.log(`The winner is ${currentPlayer} with a diagonal`)
+                    return currentPlayer
+                }  else {
+                    continue
                 }
             } catch(TypeError){
                 console.error(`The position selected caused the error when checking for
@@ -237,22 +208,16 @@ function checkWinner() {
     for (columnIndex = 0; columnIndex < board [0].length; columnIndex++) {
         for(rowIndex = 0; rowIndex < board.length; rowIndex++) {
             try{
-                if (board[rowIndex][columnIndex] == "red" && 
-                    board[rowIndex-1][columnIndex+1] == "red" && 
-                    board[rowIndex-2][columnIndex+2] == "red" && 
-                    board[rowIndex-3][columnIndex+3] == "red") {
+                if (board[rowIndex][columnIndex] == currentPlayer && 
+                    board[rowIndex-1][columnIndex+1] == currentPlayer && 
+                    board[rowIndex-2][columnIndex+2] == currentPlayer && 
+                    board[rowIndex-3][columnIndex+3] == currentPlayer) {
                     gameOver = true
-                    console.log(`The winner is red with a diagonal`)
+                    console.log(`The winner is ${currentPlayer} with a diagonal`)
                     playerOneScore += 1
-                    return "red"
-                } else if (board[rowIndex][columnIndex] == "yellow" && 
-                board[rowIndex-1][columnIndex+1] == "yellow" && 
-                board[rowIndex-2][columnIndex+2] == "yellow" && 
-                board[rowIndex-3][columnIndex+3] == "yellow") {
-                gameOver = true
-                console.log(`The winner is yellow with a diagonal`)
-                playerTwoScore += 1
-                return "yellow"
+                    return currentPlayer
+                } else {
+                    continue
                 }
             } catch(TypeError){
                 console.error(`The position selected caused the error when checking for
@@ -279,6 +244,152 @@ function checkWinner() {
     }
 
 }
+
+
+// // //Return either "reds", "cross" or "nobody" if the game is over.
+// // //Otherwise return null to continue playing.
+// function checkWinner() {
+//     console.log("checkWinner was called");
+//     let redCount = 0
+//     let yellowCount = 0
+
+//     //Check horizontal for winner
+//     for (rowIndex = 0; rowIndex<board.length; rowIndex++){
+//         for (columnIndex = 0; columnIndex<board[0].length; columnIndex++){
+//             if (board[rowIndex][columnIndex] === "red"){
+//                 yellowCount = 0
+//                 redCount += 1
+//                 if (redCount >= 4) {
+//                     console.log(`The red count is: ${redCount}`)
+//                     gameOver = true
+//                     console.log(`The winner is red with horizontal`)
+//                     playerOneScore += 1
+//                     return "red"
+//                     }
+//             } else if (board[rowIndex][columnIndex] === "yellow"){
+//                 redCount = 0
+//                 yellowCount += 1
+//                 if (yellowCount >= 4) {
+//                     console.log(`The yellow count is: ${yellowCount}`)
+//                     gameOver = true
+//                     console.log(`The winner is yellow with horizontal`)
+//                     playerTwoScore += 1
+//                     return "yellow"
+//                     }
+//             } else{
+//                 yellowCount = 0
+//                 redCount = 0
+//             }
+//         } yellowCount = 0
+//         redCount = 0
+//     }
+
+//     //Check Vertical
+//     for (columnIndex = 0; columnIndex<board[0].length; columnIndex++){
+//         for (rowIndex = 0; rowIndex<board.length; rowIndex++){
+//             if (board[rowIndex][columnIndex] === "red"){
+//                 yellowCount = 0
+//                 redCount += 1
+//                 if (redCount >= 4) {
+//                     console.log(`The reds count is: ${redCount}`)
+//                     gameOver = true
+//                     console.log(`The winner is red with vertical`)
+//                     playerOneScore += 1
+//                     return "red"
+//                     }
+//             } else if (board[rowIndex][columnIndex] === "yellow"){
+//                 redCount = 0
+//                 yellowCount += 1
+//                 if (yellowCount >= 4) {
+//                     console.log(`The yellow count is: ${yellowCount}`)
+//                     gameOver = true
+//                     console.log(`The winner is yellow with vertical`)
+//                     playerTwoScore += 1
+//                     return "yellow"
+//                     }
+//             } else{
+//                 yellowCount = 0
+//                 redCount = 0
+//             }
+//         } yellowCount = 0
+//         redCount = 0
+//     }
+    
+//     //Check Upper left Diagonal
+//     for (columnIndex = 0; columnIndex < board[0].length; columnIndex++) {
+//         for(rowIndex = 0; rowIndex < board.length; rowIndex++) {
+//         //for (columnIndex = 0; columnIndex < board.length; columnIndex++) {
+//             try{
+//                 if (board[rowIndex][columnIndex] == "red" && 
+//                     board[rowIndex-1][columnIndex-1] == "red" && 
+//                     board[rowIndex-2][columnIndex-2] == "red" && 
+//                     board[rowIndex-3][columnIndex-3] == "red") {
+//                     gameOver = true
+//                     console.log(`The winner is red with a diagonal`)
+//                     playerOneScore += 1
+//                     return "red"
+//                 } else if (board[rowIndex][columnIndex] == "yellow" && 
+//                 board[rowIndex-1][columnIndex-1] == "yellow" && 
+//                 board[rowIndex-2][columnIndex-2] == "yellow" && 
+//                 board[rowIndex-3][columnIndex-3] == "yellow") {
+//                 gameOver = true
+//                 console.log(`The winner is yellow with a diagonal`)
+//                 playerTwoScore += 1
+//                 return "yellow"
+//                 }
+//             } catch(TypeError){
+//                 console.error(`The position selected caused the error when checking for
+//                 an upper left diagonal win: ${TypeError}`)
+//             }
+//         }
+//     }
+
+//     //Check Upper Right Diagonal
+//     for (columnIndex = 0; columnIndex < board [0].length; columnIndex++) {
+//         for(rowIndex = 0; rowIndex < board.length; rowIndex++) {
+//             try{
+//                 if (board[rowIndex][columnIndex] == "red" && 
+//                     board[rowIndex-1][columnIndex+1] == "red" && 
+//                     board[rowIndex-2][columnIndex+2] == "red" && 
+//                     board[rowIndex-3][columnIndex+3] == "red") {
+//                     gameOver = true
+//                     console.log(`The winner is red with a diagonal`)
+//                     playerOneScore += 1
+//                     return "red"
+//                 } else if (board[rowIndex][columnIndex] == "yellow" && 
+//                 board[rowIndex-1][columnIndex+1] == "yellow" && 
+//                 board[rowIndex-2][columnIndex+2] == "yellow" && 
+//                 board[rowIndex-3][columnIndex+3] == "yellow") {
+//                 gameOver = true
+//                 console.log(`The winner is yellow with a diagonal`)
+//                 playerTwoScore += 1
+//                 return "yellow"
+//                 }
+//             } catch(TypeError){
+//                 console.error(`The position selected caused the error when checking for
+//                 an upper right diagonal win: ${TypeError}`)
+//             }
+//         }
+//     } 
+
+//     count = 0
+//     for (columnIndex = 0; columnIndex<6; columnIndex++) {
+//         for(rowIndex = 0; rowIndex<7; rowIndex++) {
+//             if (board[columnIndex][rowIndex] === "red" 
+//             || board[columnIndex][rowIndex] === "yellow"){
+//                 count += 1
+//                 console.log(`The game count is: ${count}`)
+//                 if (count >= 42){
+//                     console.log('The game is over: Its a draw')
+//                     gameOver = true
+//                     return "nobody"
+
+//                 }
+//             }
+//         }
+//     }
+
+// }
 
 if (typeof exports === 'object') {
     console.log("Running in Node")

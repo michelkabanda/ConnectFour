@@ -119,6 +119,8 @@ function resetBoard(){
 function playAgainParameterReset(){
     currentPlayer = playerOne
     gameOver = false
+    playerOneGameCount = 0
+    playerTwoGameCount = 0
 }
 
 //Function to reset the board only

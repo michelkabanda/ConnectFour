@@ -20,6 +20,8 @@ let playerOneScore = 0
 let playerTwoScore = 0
 let playerOneName = ""
 let playerTwoName = ""
+let playerOneGameCount = 0
+let playerTwoGameCount = 0
 
 
 // Return the current board state with either a "red" or a "yellow" in
@@ -61,24 +63,34 @@ function takeTurn(row, column) {
             console.log(`takeTurn column ${column} is full`)
         }
 
-        //Now update the DOM to show the counter in the right place
-        if (currentPlayer === playerOne) {
-            console.log(`The player is ${currentPlayer}`)
-            displayWinner()
-            currentPlayer = playerTwo
-            playerTurnDisplay()
-            console.log(`The player is ${currentPlayer}`)
-            computerPlayer()
-
-        } else if (currentPlayer === playerTwo){
-            console.log(`The player is ${currentPlayer}`)
-            displayWinner()
-            currentPlayer = playerOne
-            playerTurnDisplay()
-            console.log(`The player is ${currentPlayer}`)
-        }
+        swapPlayerTurns()
     }
 }
+
+function swapPlayerTurns(){
+    //Now update the DOM to show the counter in the right place
+    if (currentPlayer === playerOne) {
+        console.log(`The player is ${currentPlayer}`)
+        displayWinner()
+        currentPlayer = playerTwo
+        playerOneGameCount += 1
+        console.log(`${playerOneName}'s ${playerOneGameCount} move`)
+        playerTurnDisplay()
+        console.log(`The player is ${currentPlayer}`)
+        computerPlayer()
+
+    } else if (currentPlayer === playerTwo){
+        console.log(`The player is ${currentPlayer}`)
+        displayWinner()
+        currentPlayer = playerOne
+        playerTwoGameCount += 1
+        console.log(`${playerTwoName}'s ${playerTwoGameCount} move`)
+        playerTurnDisplay()
+        console.log(`The player is ${currentPlayer}`)
+    }
+}
+
+
 
 //Function to initialise and set the computer player
 function computerPlayer(){

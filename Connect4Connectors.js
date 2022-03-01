@@ -176,12 +176,13 @@ function resetClick(event) {
 function playAgainResetClick(event) {
     if (gameStarted){
         playAgain();
+        playerTurnDisplay()
         const winnerDisplay = document.getElementById("winner-display");
         winnerDisplay.innerText = "";
         winnerDisplay.style.display = "None";
         clearBoard()
         console.log("The board was cleared")
-    }
+    } 
 }
 
 //The instructions button was clicked call change the display of the instructions

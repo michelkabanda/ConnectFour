@@ -34,24 +34,17 @@ function getBoard() {
 // Take the row and column number between 0 and 2 
 // (inclusive) and update the game state.
 function takeTurn(row, column) {
-    console.log("takeTurn was called with row: "+row+", column:"+column);
-    //Check to see if the game isn't over yet and the chosen positions is valid. 
+    console.log("takeTurn was called with row: "+row+", column:"+column); 
     if (gameOver === true){
         console.log(`The game is over`)
         return
     }
-    //Check the column that was clicked on.
-    //Find the bottom empty cell and place the counter in that cell.
     if (gameStarted){
         let bottomRowIndex = -1
         for (let rowIndex = 0; rowIndex < 6; rowIndex++){
             if (!board[rowIndex][column]){
-                // console.log(`Row index is: ${rowIndex}`)
-                // console.log(`Column index is: ${column}`)
                 bottomRowIndex = rowIndex
-                // console.log(`Bottom available index is: ${bottomRowIndex}`)
             } else {
-                // console.log(`Column: ${column}, Row: ${row} is taken.`)
                 continue
             }
         } 
@@ -67,8 +60,8 @@ function takeTurn(row, column) {
     }
 }
 
+//Swap the players and updates their move counts
 function swapPlayerTurns(){
-    //Now update the DOM to show the counter in the right place
     if (currentPlayer === playerOne) {
         console.log(`The player is ${currentPlayer}`)
         playerOneGameCount += 1
@@ -90,8 +83,6 @@ function swapPlayerTurns(){
     }
 }
 
-
-
 //Function to initialise and set the computer player
 function computerPlayer(){
     if (computer){
@@ -105,6 +96,7 @@ function computerPlayer(){
     }
 }
 
+//Function which resets the game board and returns it
 function resetBoard(){
     board = [[null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null], 
@@ -171,6 +163,7 @@ function checkWinner() {
     }
 }
 
+//Checks the grid for a horizontal winner
 function horizontalWinnerCheck(){
     let count = 0
     //Check horizontal for winner
@@ -193,6 +186,7 @@ function horizontalWinnerCheck(){
 
 }
 
+//Checks the grid for a vertical winner
 function verticalWinnerCheck(){
     //Check Vertical
     let count = 0
@@ -213,7 +207,8 @@ function verticalWinnerCheck(){
         } count = 0
     }
 }
-    
+
+//Checks the grid for a diagonal winner
 function diagonalWinnerCheck(){
    //Check Upper left Diagonal
    for (columnIndex = 0; columnIndex < board[0].length; columnIndex++) {
@@ -261,7 +256,8 @@ function diagonalWinnerCheck(){
     } 
 
 }
- 
+
+//Checks the grid for a tie game
 function drawGame(){
     count = 0
     for (columnIndex = 0; columnIndex<6; columnIndex++) {

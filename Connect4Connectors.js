@@ -125,16 +125,15 @@ function displayWinner(){
         }
         const winnerDisplay = document.getElementById("winner-display");
         if (winner === "red"){
-            // hidePlayerTurn()
             playerOneScore += 1
-            winnerDisplay.innerText = `The winner is ${playerOneName}`;
+            winnerDisplay.innerText = `The winner is ${playerOneName} with ${playerOneGameCount} moves!`;
 
         } else if (winner === "yellow"){
             playerTwoScore += 1
             winnerDisplay.style.color = "black"
-            winnerDisplay.innerText = `The winner is ${playerTwoName}`;
+            winnerDisplay.innerText = `The winner is ${playerTwoName} with ${playerTwoGameCount} moves!`;
         } else {
-            winnerDisplay.innerText = `The game ended in a draw`;
+            winnerDisplay.innerText = `The game ended in a draw!`;
         }
         winnerDisplay.style.display = "block";
         winnerDisplay.style.backgroundColor = winner;
@@ -291,23 +290,26 @@ function updateNameAndScore(){
     const playersNameBox = document.getElementById("player-scores-box")
     playersNameBox.style.display = "inline-flex"
     playersNameBox.innerText = `${playerOneName}: ${playerOneScore} |  ${playerTwoName}: ${playerTwoScore}`
-
-    const playersTurn = document.getElementById("player-turn")
-    playersTurn.style.display = "inline-flex"
+    
+    if (human){
+        const playersTurn = document.getElementById("player-turn")
+        playersTurn.style.display = "inline-flex"
+    }  
 }
 
 function playerTurnDisplay(){
     const playersTurn = document.getElementById("player-turn")
     playersTurn.style.backgroundColor = currentPlayer
-    // playersTurn.style.color = "black"
-    if (currentPlayer === playerOne){
-        playersTurn.style.color = "white"
-        playersTurn.innerText = `It is ${playerOneName}'s turn`
-    } else if (currentPlayer === playerTwo){
+    if (gameOver){
+        playersTurn.style.backgroundColor = "white"
         playersTurn.style.color = "black"
-        playersTurn.innerText = `It is ${playerTwoName}'s turn`
-    } else if (gameOver){
-        playersTurn.innerText = `The game is over`
+        playersTurn.innerText = `The Game is Over!`
+    } else if (currentPlayer === playerOne){
+        playersTurn.style.color = "white"
+        playersTurn.innerText = `It is ${playerOneName}'s turn!`
+    } else {
+        playersTurn.style.color = "black"
+        playersTurn.innerText = `It is ${playerTwoName}'s turn!`
     }
 }
 

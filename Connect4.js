@@ -71,20 +71,20 @@ function swapPlayerTurns(){
     //Now update the DOM to show the counter in the right place
     if (currentPlayer === playerOne) {
         console.log(`The player is ${currentPlayer}`)
-        displayWinner()
-        currentPlayer = playerTwo
         playerOneGameCount += 1
         console.log(`${playerOneName}'s ${playerOneGameCount} move`)
+        displayWinner()
+        currentPlayer = playerTwo
         playerTurnDisplay()
         console.log(`The player is ${currentPlayer}`)
         computerPlayer()
 
     } else if (currentPlayer === playerTwo){
         console.log(`The player is ${currentPlayer}`)
-        displayWinner()
-        currentPlayer = playerOne
         playerTwoGameCount += 1
         console.log(`${playerTwoName}'s ${playerTwoGameCount} move`)
+        displayWinner()
+        currentPlayer = playerOne
         playerTurnDisplay()
         console.log(`The player is ${currentPlayer}`)
     }

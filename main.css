@@ -210,9 +210,9 @@ h2 {
     font-size:14pt;
 }
 
-/* #player-turn{
-
-} */
+#player-turn{
+    display: none
+}
 
 .cell {
     width: 50px;

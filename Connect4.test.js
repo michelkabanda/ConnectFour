@@ -1,18 +1,31 @@
-const connectFourModule = require('./Connect4Test');
+const {
+    resetBoard
+} = require('./Connect4');
 
 // import {playAgainParameterReset} from ('./Connect4Test')
 
-describe("When resetting the game parameters ", () => {
-    test("The board the reset the current player to player one and the gameOver state to false", () => {
+describe("When resetting the board ", () => {
+    test("The board should return a board full of nulls (empty board)", () => {
         //arrange
-        let currentPlayer = playerTwo
-        let gameOver = true
+        let board = [[null, null, null, null, null, null, null], 
+                    [null, null, null, null, null, null, null], 
+                    [null, null, null, null, null, null, null],
+                    [null, null, null, null, null, null, null],
+                    ["red", "yellow", null, null, null, null, null],
+                    ["red", "yellow", "red", "yellow", null, null, null]]
 
 
-        
-        
+        expectedOutput = [[null, null, null, null, null, null, null], 
+                            [null, null, null, null, null, null, null], 
+                            [null, null, null, null, null, null, null],
+                            [null, null, null, null, null, null, null],
+                            [null, null, null, null, null, null, null],
+                            [null, null, null, null, null, null, null]]
+
         //act
+        const actualOutput = resetBoard()
 
         //assert
+        expect(actualOutput).toScrictEqual(expectedOutput)
     })
 })

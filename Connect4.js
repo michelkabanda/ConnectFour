@@ -278,21 +278,25 @@ function drawGame(){
     }
 }
 
-
 if (typeof exports === 'object') {
     console.log("Running in Node")
     // Node. Does not work with strict CommonJS, but only CommonJS-like 
     // environments that support module.exports, like Node.
     module.exports = {
-        takeTurn,
-        checkWinner,
-        resetGame,
         getBoard,
-        playAgain,
+        takeTurn,
+        swapPlayerTurns,
+        computerPlayer,
+        resetBoard,
         playAgainParameterReset,
-        fullGameParameterReset,
         playAgain,
+        fullGameParameterReset,
         resetGame,
+        checkWinner,
+        horizontalWinnerCheck,
+        verticalWinnerCheck,
+        diagonalWinnerCheck,
+        drawGame,
     }
 } else {
     console.log("Running in Browser")

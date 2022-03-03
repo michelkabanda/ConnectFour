@@ -97,14 +97,14 @@ function computerPlayer(){
 }
 
 //Function which resets the game board and returns it
-function resetBoard(){
-    board = [[null, null, null, null, null, null, null], 
+function resetBoard(boardToReset){
+    boardToReset = [[null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null], 
              [null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null],
              [null, null, null, null, null, null, null]]
-    return board
+    return boardToReset
 }
 
 //Function which resets the play again parameters
@@ -120,7 +120,7 @@ function playAgain() {
     console.log("The game was reset");
     console.log("Current player is red")
     playAgainParameterReset()
-    resetBoard()
+    board = resetBoard(board)
     console.log("The board state is now ready")
     console.log(board)
 }
@@ -140,7 +140,7 @@ function resetGame() {
     console.log("The game was reset completely");
     console.log("Current player is red")
     fullGameParameterReset()
-    resetBoard()
+    board = resetBoard(board)
     console.log("The board state is now ready")
     console.log(board)
 }

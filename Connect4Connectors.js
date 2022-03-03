@@ -63,7 +63,7 @@ function clearBoard() {
 
 // Populate the grid with images based on the board state.
 function drawBoard(board) {
-    if (gameStarted){
+    if (gameStarted) {
         console.log(board)
         clearBoard();
         for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
@@ -75,7 +75,7 @@ function drawBoard(board) {
                 document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = cellText
             }
         }
-    }    
+    }
 }
 
 // A grid position was clicked call the game's turn function, redraw and then check for a winner.
@@ -86,13 +86,13 @@ function positionClick(rowIndex, columnIndex, event) {
 }
 
 
-function mouseOverCellHighlight(row,column){
-    if (gameStarted){
-        for (rowIndex = 0; rowIndex < board.length; rowIndex++){
+function mouseOverCellHighlight(row, column) {
+    if (gameStarted) {
+        for (rowIndex = 0; rowIndex < board.length; rowIndex++) {
             const mouseOverColour = document.getElementById(`row-${rowIndex}-column-${column}`)
-            if (board[rowIndex][column] === null){
-                if (!gameOver){
-                    if (currentPlayer === playerOne){
+            if (board[rowIndex][column] === null) {
+                if (!gameOver) {
+                    if (currentPlayer === playerOne) {
                         mouseOverColour.style.backgroundColor = "rgba(255, 0, 0, 0.6)"
                     } else {
                         mouseOverColour.style.backgroundColor = "rgba(255, 255, 0, 0.6)"
@@ -104,11 +104,11 @@ function mouseOverCellHighlight(row,column){
 }
 
 
-function mouseOutCellRemoveHighlight(row,column){
-    if (gameStarted){
-        for (rowIndex = 0; rowIndex < board.length; rowIndex++){
+function mouseOutCellRemoveHighlight(row, column) {
+    if (gameStarted) {
+        for (rowIndex = 0; rowIndex < board.length; rowIndex++) {
             const mouseOutOfColour = document.getElementById(`row-${rowIndex}-column-${column}`)
-            if (board[rowIndex][column] === null){
+            if (board[rowIndex][column] === null) {
                 mouseOutOfColour.style.backgroundColor = "white"
             }
         }
@@ -116,7 +116,7 @@ function mouseOutCellRemoveHighlight(row,column){
 }
 
 
-function displayWinner(){
+function displayWinner() {
     const winner = checkWinner();
     console.log(`I am ${winner}`)
     if (winner) {
@@ -124,11 +124,11 @@ function displayWinner(){
             throw "Expecting 'checkWinner' to return null or one of the strings 'red', 'yellow' or 'nobody'. Actually received: " + winner;
         }
         const winnerDisplay = document.getElementById("winner-display");
-        if (winner === "red"){
+        if (winner === "red") {
             playerOneScore += 1
             winnerDisplay.innerText = `The winner is ${playerOneName} with ${playerOneGameCount} moves!`;
 
-        } else if (winner === "yellow"){
+        } else if (winner === "yellow") {
             playerTwoScore += 1
             winnerDisplay.style.color = "black"
             winnerDisplay.innerText = `The winner is ${playerTwoName} with ${playerTwoGameCount} moves!`;
@@ -137,24 +137,24 @@ function displayWinner(){
         }
         winnerDisplay.style.display = "block";
         winnerDisplay.style.backgroundColor = winner;
-        if (winner !== "nobody"){
+        if (winner !== "nobody") {
             winnerDisplay.style.backgroundColor = winner;
         } else {
             winnerDisplay.style.backgroundColor = "black"
-        } 
+        }
     } updateNameAndScore()
 }
 
 //Sets the grid colour to white once the game starts
-function changeCellColour(){
-    if (gameStarted){
+function changeCellColour() {
+    if (gameStarted) {
         for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
             for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
                 const cell = document.getElementById(`row-${rowIndex}-column-${columnIndex}`)
                 cell.style.backgroundColor = "rgb(255, 255, 255)"
             }
-        } 
-    } 
+        }
+    }
 }
 
 // The reset button was clicked, call the game's reset function then reset the DOM.
@@ -173,7 +173,7 @@ function resetClick(event) {
 
 // The reset button was clicked, call the game's reset function then reset the DOM.
 function playAgainResetClick(event) {
-    if (gameStarted){
+    if (gameStarted) {
         playAgain();
         playerTurnDisplay()
         const winnerDisplay = document.getElementById("winner-display");
@@ -181,14 +181,14 @@ function playAgainResetClick(event) {
         winnerDisplay.style.display = "None";
         clearBoard()
         console.log("The board was cleared")
-    } 
+    }
 }
 
 //The instructions button was clicked call change the display of the instructions
 //to block if display === none or none if display === block
 function instructionsClick(event) {
     const instructions = document.getElementById("instructions")
-    if (instructions.style.display === ""){
+    if (instructions.style.display === "") {
         console.log("Changed the display to block")
         instructions.style.display = "block"
         console.log(instructions.style.display)
@@ -226,10 +226,10 @@ function startClick(event) {
     playerTwoTextBox.style.display = 'none'
     playerTwoSubmitButton.style.display = 'none'
 
-    if (playerTwoName === ""){
+    if (playerTwoName === "") {
         playerTwoName = "Yellow Player"
 
-    } if (playerOneName === ""){
+    } if (playerOneName === "") {
         playerOneName = "Red Player"
     }
 
@@ -240,14 +240,14 @@ function startClick(event) {
 
 //Enable the human vs human option click 
 function humanVsHumanOptionClick(event) {
-    if (!computer){
+    if (!computer) {
         human = true
         humanVsHumanOptionButton.style.backgroundColor = "rgb(80, 220, 100)"
         const playersOnScreenTitles = document.getElementById("players-container")
         playersOnScreenTitles.style.display = "flex"
         const start = document.getElementById("start-button")
         start.style.display = "inline-block"
-    } else{
+    } else {
         return
     }
 }
@@ -255,7 +255,7 @@ function humanVsHumanOptionClick(event) {
 
 //Enable the human vs computer option click
 function humanVsComputerOptionClick(event) {
-    if (!human){
+    if (!human) {
         computer = true
         humanVsComputerOptionButton.style.backgroundColor = "rgb(80, 220, 100)"
         const playersOnScreenTitles = document.getElementById("players-container")
@@ -286,25 +286,25 @@ function submitPlayerTwoName(event) {
 }
 
 //Update the on-screen names and the scores
-function updateNameAndScore(){
+function updateNameAndScore() {
     const playersNameBox = document.getElementById("player-scores-box")
     playersNameBox.style.display = "inline-flex"
     playersNameBox.innerText = `${playerOneName}: ${playerOneScore} |  ${playerTwoName}: ${playerTwoScore}`
-    
-    if (human){
+
+    if (human) {
         const playersTurn = document.getElementById("player-turn")
         playersTurn.style.display = "inline-flex"
-    }  
+    }
 }
 
-function playerTurnDisplay(){
+function playerTurnDisplay() {
     const playersTurn = document.getElementById("player-turn")
     playersTurn.style.backgroundColor = currentPlayer
-    if (gameOver){
+    if (gameOver) {
         playersTurn.style.backgroundColor = "white"
         playersTurn.style.color = "black"
         playersTurn.innerText = `The Game is Over!`
-    } else if (currentPlayer === playerOne){
+    } else if (currentPlayer === playerOne) {
         playersTurn.style.color = "white"
         playersTurn.innerText = `It is ${playerOneName}'s turn!`
     } else {
@@ -314,13 +314,13 @@ function playerTurnDisplay(){
 }
 
 //function to hide player turn
-function hidePlayerTurn(){
+function hidePlayerTurn() {
     const playersTurn = document.getElementById("player-turn")
     playersTurn.style.display = ""
 }
 
 //Function to hide the names and scores 
-function hideScoreboardShowNames(){
+function hideScoreboardShowNames() {
     const playersNameBox = document.getElementById("player-scores-box")
     playersNameBox.style.display = "none"
     playersNameBox.innerText = ``

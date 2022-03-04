@@ -164,6 +164,8 @@ function resetClick(event) {
     winnerDisplay.innerText = "";
     winnerDisplay.style.display = "None";
     humanVsHumanOptionButton.style.backgroundColor = ""
+    playerOneName = ""
+    playerTwoName = ""
     humanVsComputerOptionButton.style.backgroundColor = ""
     clearBoard()
     hideScoreboardShowNames()

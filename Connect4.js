@@ -125,7 +125,7 @@ function playAgain() {
     console.log(board)
 }
 
-//Set the game state back to its original state to play another game.
+//Set the game state back to its original state to restart the game
 function fullGameParameterReset() {
     playAgainParameterReset()
     gameStarted = false

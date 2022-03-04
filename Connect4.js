@@ -83,7 +83,7 @@ function swapPlayerTurns() {
     }
 }
 
-//Function to initialise and set the computer player
+//Function to initialize and set the computer player
 function computerPlayer() {
     if (computer) {
         if (currentPlayer === playerTwo) {
@@ -238,14 +238,14 @@ function diagonalWinnerCheck(boardToCheck, currentPlayerToCheck) {
     for (columnIndex = 0; columnIndex < boardToCheck[0].length; columnIndex++) {
         for (rowIndex = 0; rowIndex < boardToCheck.length; rowIndex++) {
             try {
-                if (boardToCheck[rowIndex][columnIndex] == currentPlayer &&
-                    boardToCheck[rowIndex - 1][columnIndex + 1] == currentPlayer &&
-                    boardToCheck[rowIndex - 2][columnIndex + 2] == currentPlayer &&
-                    boardToCheck[rowIndex - 3][columnIndex + 3] == currentPlayer) {
+                if (boardToCheck[rowIndex][columnIndex] == currentPlayerToCheck &&
+                    boardToCheck[rowIndex - 1][columnIndex + 1] == currentPlayerToCheck &&
+                    boardToCheck[rowIndex - 2][columnIndex + 2] == currentPlayerToCheck &&
+                    boardToCheck[rowIndex - 3][columnIndex + 3] == currentPlayerToCheck) {
                     gameOver = true
-                    console.log(`The winner is ${currentPlayer} with a diagonal`)
+                    console.log(`The winner is ${currentPlayerToCheck} with a diagonal`)
                     playerOneScore += 1
-                    return currentPlayer
+                    return currentPlayerToCheck
                 } else {
                     continue
                 }

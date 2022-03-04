@@ -1,4 +1,4 @@
-// Bind the click event for the reset button.
+// Bind the click event for the play again button.
 const playAgainButton = document.getElementById("play-again-button");
 playAgainButton.addEventListener("click", playAgainResetClick);
 
@@ -78,14 +78,14 @@ function drawBoard(board) {
     }
 }
 
-// A grid position was clicked call the game's turn function, redraw and then check for a winner.
+// A grid position was clicked call the game's turn function and redraw.
 function positionClick(rowIndex, columnIndex, event) {
     takeTurn(rowIndex, columnIndex);
     const board = getBoard();
     drawBoard(board);
 }
 
-
+//Adds a faded player colour highlight to the cells when the mouse goes over
 function mouseOverCellHighlight(row, column) {
     if (gameStarted) {
         for (rowIndex = 0; rowIndex < board.length; rowIndex++) {
@@ -103,7 +103,7 @@ function mouseOverCellHighlight(row, column) {
     }
 }
 
-
+//Removes the highlight when the mouse leaves the cell
 function mouseOutCellRemoveHighlight(row, column) {
     if (gameStarted) {
         for (rowIndex = 0; rowIndex < board.length; rowIndex++) {
@@ -115,7 +115,7 @@ function mouseOutCellRemoveHighlight(row, column) {
     }
 }
 
-
+//Check for a winner and return the winner
 function displayWinner() {
     const winner = checkWinner();
     console.log(`I am ${winner}`)
@@ -173,7 +173,7 @@ function resetClick(event) {
 
 }
 
-// The reset button was clicked, call the game's reset function then reset the DOM.
+// The play again button was clicked, call the game's play again button and reset only the grid.
 function playAgainResetClick(event) {
     if (gameStarted) {
         playAgain();
@@ -186,7 +186,7 @@ function playAgainResetClick(event) {
     }
 }
 
-//The instructions button was clicked call change the display of the instructions
+//The instructions button was clicked, call change the display of the instructions
 //to block if display === none or none if display === block
 function instructionsClick(event) {
     const instructions = document.getElementById("instructions")

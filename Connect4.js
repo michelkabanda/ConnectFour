@@ -24,8 +24,8 @@ let playerOneGameCount = 0
 let playerTwoGameCount = 0
 
 
-// Return the current board state with either a "red" or a "yellow" in
-// each position. Put a null in a position that hasn't been played yet.
+//Return the current board state with either a "red" or a "yellow" in
+//each position. Put a null in a position that hasn't been played yet.
 function getBoard() {
     console.log("getBoard was called");
     return board
